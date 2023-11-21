@@ -1,6 +1,8 @@
 import tkinter as tk
 import customtkinter
 from pytube import YouTube
+from pytube.exceptions import RegexMatchError
+from urllib.error import URLError
 
 def start_download():
     state_label.configure(text="Donwloading...")
@@ -13,9 +15,12 @@ def start_download():
         title.configure(text=yt_object.title, text_color='white')
         # Downloading the video
         video.download()
-    except Exception as err:
+    except URLError:
+        state_label.configure(text="Connection Error Occured!", text_color="red")
+        
+    except RegexMatchError:
         state_label.configure(text="YouTube link is invalid!", text_color="red")
-        print(err)
+        
     else:
         state_label.configure(text="Download Completed Successfully!", text_color="green")
 
