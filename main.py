@@ -4,7 +4,8 @@ from pytube import YouTube
 from pytube.exceptions import RegexMatchError
 from urllib.error import URLError
 
-def start_download():
+def start_download() -> None:
+    """Start downloading YouTube video by given link"""
     state_label.configure(text="Donwloading...")
     try:
         # Creating YouTube object by the given link
@@ -24,7 +25,8 @@ def start_download():
     else:
         state_label.configure(text="Download Completed Successfully!", text_color="green")
 
-def on_progress(stream, chunk, bytes_remaining):
+def on_progress(stream, chunk, bytes_remaining) -> None:
+    """Calculates the progress and sets the progress bar"""
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
     percentage_of_compeletion = int(bytes_downloaded / total_size * 100)
