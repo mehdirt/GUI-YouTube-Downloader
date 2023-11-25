@@ -62,7 +62,7 @@ progress_bar.pack(padx=15, pady=15)
 
 # Option Menu
 option = customtkinter.StringVar(value="480p")
-option_menu = customtkinter.CTkOptionMenu(app,values=['144p', '240p', '360p','480', '720p'], variable=option)
+option_menu = customtkinter.CTkOptionMenu(app,values=['144p', '240p', '360p','480p', '720p'], variable=option)
 option_menu.pack(pady=5)
 
 # Download Button
