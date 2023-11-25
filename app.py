@@ -32,6 +32,11 @@ def on_progress(stream, chunk, bytes_remaining) -> None:
     progress_bar.configure(text=str(percentage_of_compeletion) + '%')
     progress_bar.set(percentage_of_compeletion / 100)
 
+def browse_directory():
+    download_path = customtkinter.filedialog.askdirectory()
+    entry_path.delete(0, customtkinter.END)  # Clear previous entry
+    entry_path.insert(0, download_path)
+
 # System Setting
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -46,14 +51,43 @@ app.title("YouTube Downloader")
 title = customtkinter.CTkLabel(app, text="Insert a YouTube link")
 title.pack(padx=20, pady=20)
 
-# Link input 
+# Input wrapper:
+input_wrapper = customtkinter.CTkFrame(app, width=450, height=450, fg_color="transparent")
+input_wrapper.pack()
+
+# URL_wrapper
+URL_wrapper = customtkinter.CTkFrame(input_wrapper, fg_color="transparent")
+URL_wrapper.pack()
+
+# YouTube Link input 
+link_label = customtkinter.CTkLabel(URL_wrapper, text="YouTube URL:")
+link_label.pack(padx=15, side=customtkinter.LEFT)
+
 url = customtkinter.StringVar()
-link = customtkinter.CTkEntry(app, width=450, height=40, textvariable=url)
-link.pack()
+link = customtkinter.CTkEntry(URL_wrapper, width=250, height=20, textvariable=url)
+link.pack(side=customtkinter.RIGHT)
+
+# Donwload path wrapper
+download_path_wrapper = customtkinter.CTkFrame(input_wrapper, fg_color="transparent")
+download_path_wrapper.pack()
+
+# Download Path input
+path_label = customtkinter.CTkLabel(download_path_wrapper, text="Download Path:")
+path_label.pack(padx=15, side=customtkinter.LEFT)
+
+entry_path = customtkinter.CTkEntry(download_path_wrapper, width=195, height=20)
+entry_path.pack(pady=10, side=customtkinter.LEFT)
+
+button_browse = customtkinter.CTkButton(download_path_wrapper, width=15, text="Browse", command=browse_directory)
+button_browse.pack(padx=10, side=customtkinter.RIGHT)
 
 # State Label
 state_label = customtkinter.CTkLabel(app, text="")
 state_label.pack(pady=5)
+
+# Download Button
+download_btn = customtkinter.CTkButton(app, text="Download", width=150, height=35, command=start_download)
+download_btn.pack(padx=20, pady=20)
 
 # Progress Bar
 progress_bar = customtkinter.CTkProgressBar(app, progress_color='blue', width=500, height=15)
@@ -64,10 +98,6 @@ progress_bar.pack(padx=15, pady=15)
 option = customtkinter.StringVar(value="480p")
 option_menu = customtkinter.CTkOptionMenu(app,values=['144p', '240p', '360p','480p', '720p'], variable=option)
 option_menu.pack(pady=5)
-
-# Download Button
-download_btn = customtkinter.CTkButton(app, text="Download", width=150, height=35, command=start_download)
-download_btn.pack(padx=20, pady=20)
 
 #Run App
 app.mainloop()
