@@ -63,7 +63,9 @@ URL_wrapper = customtkinter.CTkFrame(input_wrapper, fg_color="transparent")
 URL_wrapper.pack(padx=5, pady=10)
 
         # YouTube Link input 
-link_label = customtkinter.CTkLabel(URL_wrapper, text="YouTube URL :", font=('Helvetica', 12, 'bold'))
+link_label = customtkinter.CTkLabel(URL_wrapper,
+                                    text="YouTube URL :",
+                                    font=('Helvetica', 12, 'bold'))
 link_label.pack(padx=15, side=customtkinter.LEFT)
 
 url = customtkinter.StringVar()
@@ -75,13 +77,21 @@ download_path_wrapper = customtkinter.CTkFrame(input_wrapper, fg_color="transpar
 download_path_wrapper.pack(padx=5, pady=10)
 
         # Download Path input
-path_label = customtkinter.CTkLabel(download_path_wrapper, text="Download Path :", font=('Helvetica', 12, 'bold'))
+path_label = customtkinter.CTkLabel(download_path_wrapper,
+                                    text="Download Path :",
+                                    font=('Helvetica', 12, 'bold'))
 path_label.pack(padx=15, side=customtkinter.LEFT)
 
 entry_path = customtkinter.CTkEntry(download_path_wrapper, width=185, height=20)
 entry_path.pack(pady=10, side=customtkinter.LEFT)
         # Browse Button
-button_browse = customtkinter.CTkButton(download_path_wrapper, width=15, text="Browse", text_color="#252626", fg_color="#c9d4ce", hover_color="#b4bfb9", command=browse_directory)
+button_browse = customtkinter.CTkButton(download_path_wrapper,
+                                        width=15,
+                                        text="Browse",
+                                        text_color="#252626",
+                                        fg_color="#c9d4ce",
+                                        hover_color="#b4bfb9",
+                                        command=browse_directory)
 button_browse.pack(padx=10, side=customtkinter.RIGHT)
 
 # Button wrapper
@@ -89,7 +99,13 @@ button_wrapper = customtkinter.CTkFrame(app, width=500, height=10, fg_color="tra
 button_wrapper.pack()
 
     # Download Button
-download_btn = customtkinter.CTkButton(button_wrapper, text="Download", width=100, height=30, fg_color='#339e65',hover_color="#39ad6f", command=start_download)
+download_btn = customtkinter.CTkButton(button_wrapper,
+                                       text="Download",
+                                       width=100,
+                                       height=30,
+                                       fg_color='#339e65',
+                                       hover_color="#39ad6f",
+                                       command=start_download)
 download_btn.pack(padx=80, side=customtkinter.RIGHT)
 
     # Option Menu wrapper
@@ -97,11 +113,25 @@ option_menu_wrapper = customtkinter.CTkFrame(button_wrapper, fg_color="transpare
 option_menu_wrapper.pack(padx=80, side=customtkinter.LEFT)
 
         # Resolution Label
-resolution_label = customtkinter.CTkLabel(option_menu_wrapper, text="Select Resolution:", font=("Helvetica", 12))
+resolution_label = customtkinter.CTkLabel(option_menu_wrapper,
+                                          text="Select Resolution:",
+                                          font=("Helvetica", 12))
 resolution_label.pack()
         # Option Menu
 option = customtkinter.StringVar(value="480p")
-option_menu = customtkinter.CTkOptionMenu(option_menu_wrapper, values=['144p', '240p', '360p','480p', '720p'], width=120, height=20, corner_radius=5, text_color="#252626", fg_color="#c9d4ce", dropdown_fg_color="#939695", dropdown_text_color="#252626", dropdown_hover_color="#6c736e", button_color="#78807b", button_hover_color="#89918c", variable=option)
+option_menu = customtkinter.CTkOptionMenu(option_menu_wrapper,
+                                          values=['144p', '240p', '360p','480p', '720p'],
+                                          width=120,
+                                          height=20,
+                                          corner_radius=5,
+                                          text_color="#252626",
+                                          fg_color="#c9d4ce",
+                                          dropdown_fg_color="#939695",
+                                          dropdown_text_color="#252626",
+                                          dropdown_hover_color="#6c736e",
+                                          button_color="#78807b",
+                                          button_hover_color="#89918c",
+                                          variable=option)
 option_menu.pack()
 
 # Progress wrapper
@@ -109,11 +139,16 @@ progress_wrapper = customtkinter.CTkFrame(app, fg_color="transparent")
 progress_wrapper.pack(pady=5)
 
     # State Label
-state_label = customtkinter.CTkLabel(progress_wrapper, text="", font=('Helvetica', 14, 'bold'))
+state_label = customtkinter.CTkLabel(progress_wrapper,
+                                     text="",
+                                     font=('Helvetica', 14, 'bold'))
 state_label.pack(pady=10)
 
     # Progress Bar
-progress_bar = customtkinter.CTkProgressBar(progress_wrapper, progress_color='#2d8c59', width=425, height=10)
+progress_bar = customtkinter.CTkProgressBar(progress_wrapper,
+                                            progress_color='#2d8c59',
+                                            width=425,
+                                            height=10)
 progress_bar.set(0)
 progress_bar.pack(padx=5, pady=5)
 
