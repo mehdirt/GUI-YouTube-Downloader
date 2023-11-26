@@ -13,16 +13,17 @@ def start_download() -> None:
         # Creating YouTube object by the given link
         yt_link = link.get()
         yt_object = YouTube(yt_link, on_progress_callback=on_progress)
-        video = yt_object.streams.get_by_resolution(option_menu.get())
-        # Showing the title of the video
-        title.configure(text=yt_object.title, text_color='white')
+        video = yt_object.streams.get_by_resolution(option)
         # Downloading the video
-        video.download()
+        video.download(entry_path.get())
     except URLError:
         state_label.configure(text="Connection Error Occured!", text_color="red")
         
     except RegexMatchError:
         state_label.configure(text="YouTube link is invalid!", text_color="red")
+    
+    except Exception:
+        state_label.configure(text="Some Error Occured!", text_color="red")
         
     else:
         state_label.configure(text="Download Completed Successfully!", text_color="green")
@@ -32,10 +33,11 @@ def on_progress(stream, chunk, bytes_remaining) -> None:
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
     percentage_of_compeletion = int(bytes_downloaded / total_size * 100)
-    progress_bar.configure(text=str(percentage_of_compeletion) + '%')
+    # progress_bar.configure(text=str(percentage_of_compeletion) + '%') # TODO
     progress_bar.set(percentage_of_compeletion / 100)
 
-def browse_directory():
+def browse_directory() -> None:
+    """Browse and select a directory"""
     download_path = customtkinter.filedialog.askdirectory()
     entry_path.delete(0, customtkinter.END)  # Clear previous entry
     entry_path.insert(0, download_path)
@@ -71,7 +73,7 @@ link_label = customtkinter.CTkLabel(URL_wrapper,
 link_label.pack(padx=15, side=customtkinter.LEFT)
 
 url = customtkinter.StringVar()
-link = customtkinter.CTkEntry(URL_wrapper, width=257, height=20, textvariable=url)
+link = customtkinter.CTkEntry(URL_wrapper, width=257, height=20, placeholder_text="Enter YouTube URL", textvariable=url)
 link.pack(side=customtkinter.RIGHT)
 
     # Donwload path wrapper
@@ -84,7 +86,7 @@ path_label = customtkinter.CTkLabel(download_path_wrapper,
                                     font=('Helvetica', 12, 'bold'))
 path_label.pack(padx=15, side=customtkinter.LEFT)
 
-entry_path = customtkinter.CTkEntry(download_path_wrapper, width=185, height=20)
+entry_path = customtkinter.CTkEntry(download_path_wrapper, width=185, height=20, placeholder_text="C:/Users/mehdirt/Downloads")
 entry_path.pack(pady=10, side=customtkinter.LEFT)
         # Browse Button
 button_browse = customtkinter.CTkButton(download_path_wrapper,
