@@ -49,9 +49,11 @@ app = customtkinter.CTk()
 app.geometry("550x475")
 app.title("YouTube Downloader")
 
+# Set App Icon
+app.iconbitmap("images/YouTube.ico")
 # Adding UI Elements
 # Title
-title = customtkinter.CTkLabel(app, text="YouTube Downloader", font=('Helvetica', 18, 'bold'))
+title = customtkinter.CTkLabel(app, text="GUI YouTube Downloader", font=('Helvetica', 18, 'bold'))
 title.pack(pady=25)
 
 # Input wrapper:
