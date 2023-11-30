@@ -86,7 +86,7 @@ path_label = customtkinter.CTkLabel(download_path_wrapper,
                                     font=('Helvetica', 12, 'bold'))
 path_label.pack(padx=15, side=customtkinter.LEFT)
 
-entry_path = customtkinter.CTkEntry(download_path_wrapper, width=185, height=20, placeholder_text="C:/Users/mehdirt/Downloads")
+entry_path = customtkinter.CTkEntry(download_path_wrapper, width=185, height=20, placeholder_text="C:/Users/username/Downloads")
 entry_path.pack(pady=10, side=customtkinter.LEFT)
         # Browse Button
 button_browse = customtkinter.CTkButton(download_path_wrapper,
@@ -157,8 +157,8 @@ progress_bar.set(0)
 progress_bar.pack(padx=5, pady=5)
 
 # YouTube Image
-image_path = os.path.join(os.path.dirname(__file__), 'images/YouTube_Logo.png')
-image = customtkinter.CTkImage(light_image=Image.open(image_path), size=(400, 75))
+image_path = os.path.join(os.path.dirname(__file__), 'images/YouTube-White-Full-Color-Logo.png')
+image = customtkinter.CTkImage(light_image=Image.open(image_path), size=(525, 325))
 image_label = customtkinter.CTkLabel(app, image=image, text='')
 image_label.pack(pady=30)
 
