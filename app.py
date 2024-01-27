@@ -9,11 +9,15 @@ import os
 def start_download() -> None:
     """Start downloading YouTube video by given link"""
     state_label.configure(text="Donwloading...", text_color='white')
+    progress_label.configure(text='0%')
+    progress_bar.set(0)
+
+    yt_link = link.get()
+    resolution = option.get()
     try:
         # Creating YouTube object by the given link
-        yt_link = link.get()
         yt_object = YouTube(yt_link, on_progress_callback=on_progress)
-        video = yt_object.streams.get_by_resolution(option)
+        video = yt_object.streams.get_by_resolution(resolution)
         # Downloading the video
         video.download(entry_path.get())
     except URLError:
@@ -21,10 +25,13 @@ def start_download() -> None:
         
     except RegexMatchError:
         state_label.configure(text="YouTube link is invalid!", text_color="red")
+
+    except AttributeError:
+        state_label.configure(text="Video doesn't support the given resolution!", text_color="yellow")
     
-    except Exception:
-        state_label.configure(text="Some Error Occured!", text_color="red")
-        
+    except Exception as err:
+        state_label.configure(text=f"Error: {err}", text_color="red")
+        print(type(err))
     else:
         state_label.configure(text="Download Completed Successfully!", text_color="green")
 
@@ -33,8 +40,10 @@ def on_progress(stream, chunk, bytes_remaining) -> None:
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
     percentage_of_compeletion = int(bytes_downloaded / total_size * 100)
-    # progress_bar.configure(text=str(percentage_of_compeletion) + '%') # TODO
-    progress_bar.set(percentage_of_compeletion / 100)
+    
+    progress_label.configure(text=str(percentage_of_compeletion) + '%')
+    progress_bar.set(float(percentage_of_compeletion / 100))
+    progress_label.update()
 
 def browse_directory() -> None:
     """Browse and select a directory"""
@@ -48,7 +57,7 @@ customtkinter.set_default_color_theme("blue")
 
 # App frame
 app = customtkinter.CTk()
-app.geometry("550x475")
+app.geometry("550x500")
 app.title("YouTube Downloader")
 
 # Set App Icon
@@ -124,7 +133,7 @@ resolution_label.pack()
         # Option Menu
 option = customtkinter.StringVar(value="480p")
 option_menu = customtkinter.CTkOptionMenu(option_menu_wrapper,
-                                          values=['144p', '240p', '360p','480p', '720p'],
+                                          values=['144p', '240p', '360p','480p', '720p', '1080p'],
                                           width=120,
                                           height=20,
                                           corner_radius=5,
@@ -146,7 +155,13 @@ progress_wrapper.pack(pady=5)
 state_label = customtkinter.CTkLabel(progress_wrapper,
                                      text="",
                                      font=('Helvetica', 14, 'bold'))
-state_label.pack(pady=10)
+state_label.pack(pady=12)
+
+
+progress_label = customtkinter.CTkLabel(progress_wrapper,
+                                        text="",
+                                        font=('Helvetica', 14, 'bold'))
+progress_label.pack()
 
     # Progress Bar
 progress_bar = customtkinter.CTkProgressBar(progress_wrapper,
